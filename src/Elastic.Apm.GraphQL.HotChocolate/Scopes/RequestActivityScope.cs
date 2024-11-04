@@ -45,14 +45,14 @@ namespace Elastic.Apm.GraphQL.HotChocolate
                 _transaction.Name = operationDetails.Name;
                 _transaction.Type = ApiConstants.TypeRequest;
 
-                _transaction.SetLabel("graphql.document.id", _context.DocumentId);
+                _transaction.SetLabel("graphql.document.id", _context.DocumentId?.Value);
                 _transaction.SetLabel("graphql.document.hash", _context.DocumentHash);
                 _transaction.SetLabel("graphql.document.valid", _context.IsValidDocument);
                 _transaction.SetLabel("graphql.operation.id", _context.OperationId);
                 _transaction.SetLabel("graphql.operation.kind", _context.Operation?.Type.ToString());
                 _transaction.SetLabel("graphql.operation.name", _context.Operation?.Name);
 
-                if (_context.Result is IQueryResult result)
+                if (_context.Result is IOperationResult result)
                 {
                     var errorCount = result.Errors?.Count ?? 0;
                     _transaction.SetLabel("graphql.errors.count", errorCount);

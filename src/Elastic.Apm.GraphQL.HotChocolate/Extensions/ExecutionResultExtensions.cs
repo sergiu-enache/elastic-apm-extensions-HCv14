@@ -14,7 +14,7 @@ namespace Elastic.Apm.GraphQL.HotChocolate
             [NotNullWhen(true)] out IReadOnlyList<IError>? errors)
         {
             errors = null;
-            if (result is not IQueryResult queryResult) return false;
+            if (result is not IOperationResult queryResult) return false;
 
             errors = queryResult?.Errors;
             return errors?.Any() ?? false;
